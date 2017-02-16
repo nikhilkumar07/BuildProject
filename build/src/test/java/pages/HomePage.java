@@ -1,16 +1,12 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import common.CommonPage;
+import common.Selenide;
 
-public class HomePage  extends CommonPage{
+public class HomePage  extends Selenide{
 
-	public HomePage(WebDriver driver) {
-			super(driver);
-	}
 	
 	@FindBy(id = "search_txt")
 	private WebElement searchBar;
@@ -18,51 +14,74 @@ public class HomePage  extends CommonPage{
 	@FindBy(css = "button[class='button-primary search-site-search']")
 	private WebElement searchBarImg;
 	
-	@FindBy(id = "add-to-cart-wrap")
+	@FindBy(css = "//button[contains(text(),'Add to Cart')]")
 	private WebElement addToCartBtn;
 	
-	@FindBy(xpath = "//input[@type='number']")
-	private WebElement quantityText ;
-		
-	@FindBy(xpath = "//span[contains(text(),'Cart')]")
+	@FindBy(css = "//span[contains(text(),'Cart')]")
 	private WebElement CartBtn;
-				
+	
+	@FindBy(css = "//span[class='js-price ']")
+	private WebElement price;
+	
+	@FindBy(xpath = "//*[@id='main-product-quantity']/div/input")
+	private WebElement Quantity;
+	
+	@FindBy(id="cart-tax-total")
+	private WebElement ActualTax;
+	// 
+	@FindBy(id="cart-grand-total")
+	private WebElement Grandtotal;
+	
+	@FindBy(xpath = "//*[@id='item-136021498']/td[4]")
+	private WebElement item1;
+	
+	@FindBy(xpath = "//*[@id='item-136021717']/td[4]")
+	private WebElement item2;
+	
+	
+	
 	public void navigateToUrl(){
+		openDriver();
 		getUrl("https://www.build.com");
 	}
 	
-	public void enterSearchDataAndAddItToCart(String data) throws InterruptedException{
-		pageToLoad(searchBar);
+	public void enterSearchDataAndAddItToCart(String data,String QTY){
+		pageToLoad();
+		
+		
+		
+		
 		sendText(searchBar, data);
 		clickElement(searchBarImg);
-		pageToLoad(addToCartBtn);
 		clickElement(addToCartBtn);
-		
-	}
-		
-	public void enterSearchDataWithQuantityAddItToCart(String data) throws InterruptedException{
-		pageToLoad(searchBar);
-		sendText(searchBar, data);
-		clickElement(searchBarImg);
-		pageToLoad(quantityText);
-		clearText(quantityText);
-		sendText(quantityText,"2");
-		clickElement(addToCartBtn);
-		
+		sendText(Quantity,QTY);
+		System.out.println(price());
 	}
 	
-	public void clickOnCartBtn() throws InterruptedException{
-		pageToLoad(CartBtn);
+	public void clickOnCartBtn(){
 		clickElement(CartBtn);
 	}
 	
-	public void enterSearchCashmereIteamAndAddItToCart(String data) throws InterruptedException{
-		pageToLoad(searchBar);
-		sendText(searchBar, data);
-		clickElement(searchBarImg);
-		pageToLoad(addToCartBtn);
-		clickElement(addToCartBtn);	
+	public double price(){
+		//return Integer.parseInt(price.getText());
+		return Double.parseDouble(price.getText());
+	
 	}
 	
+	public float tax(){
+		return Float.parseFloat(ActualTax.getText());
+	}
+	
+	public float totalActual(){
+		
+		return Float.parseFloat(item1.getText()) + Float.parseFloat(item2.getText());
+	}
+
+
+public float totalExpected(){
+		
+		return Float.parseFloat(item1.getText()) + Float.parseFloat(item2.getText());
+	}
+
 	
 }
