@@ -69,9 +69,14 @@ public class Payments extends Selenide{
 	private WebElement CheckBoxCC;
 	
 	
+	
+	@FindBy(xpath="//*[@id='creditcard']/div[3]/input")
+	private WebElement ReviewOrder;
+	
+	
 	//Functions for filling shipping address.
 	
-public void FillingShippingAddress(String firstname,String lastname,String companyname,String address1,String address2,String zipcode,String state,String country,String phonenumber ){
+public void FillingShippingAddress(String firstname,String lastname,String companyname,String address1,String address2,String zipcode,String phonenumber ){
 		
 		sendText(SFirstName,firstname );
 		sendText(SLastName,lastname );
@@ -79,16 +84,21 @@ public void FillingShippingAddress(String firstname,String lastname,String compa
 		sendText(SAddress1,address1 );
 		sendText(SAddress2,address2 );
 		sendText(Szipcode,zipcode );
-		selectObject(SState,state);
-		selectObject(ScountryID,country);
+		// if we enter zipcode it will automatically takes state and country.
+		
+		//selectObject(SState,state);
+		//selectObject(ScountryID,country);
 		sendText(SPhoneNumber,phonenumber);
 		
 		if(verifyElement(CardNumber))
 		{
 			FillingCreditcard("03","2022","MyNameCardName","123");
+			ReviewOrder.click();
+			
 		}else
 		{
 			sendText(CCName,"123");
+			ReviewOrder.click();
 		}
 		
 }
