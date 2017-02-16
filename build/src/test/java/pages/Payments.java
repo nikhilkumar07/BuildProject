@@ -1,22 +1,15 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import common.CommonPage;
+import common.Selenide;
 
-public class Payments extends CommonPage{
+public class Payments extends Selenide{
 	
 	
 	//shipping Address Web Elements
 	
-	public Payments(WebDriver driver) {
-		super(driver);
-		// TODO Auto-generated constructor stub
-	}
-
-
 	@FindBy(id="shippingfirstname")
 	private WebElement SFirstName;
 	
@@ -52,8 +45,7 @@ public class Payments extends CommonPage{
 	@FindBy(id="shippingphonenumber")
 	private WebElement SPhoneNumber;
 	
-	
-	
+		
 	
 	// Card Details  Web Elements
 	@FindBy(id="creditCardNumber")
@@ -79,7 +71,7 @@ public class Payments extends CommonPage{
 	
 	//Functions for filling shipping address.
 	
-public void FillingShippingAddress(String firstname,String lastname,String companyname,String address1,String address2,String zipcode  ){
+public void FillingShippingAddress(String firstname,String lastname,String companyname,String address1,String address2,String zipcode,String state,String country,String phonenumber ){
 		
 		sendText(SFirstName,firstname );
 		sendText(SLastName,lastname );
@@ -87,9 +79,27 @@ public void FillingShippingAddress(String firstname,String lastname,String compa
 		sendText(SAddress1,address1 );
 		sendText(SAddress2,address2 );
 		sendText(Szipcode,zipcode );
+		selectObject(SState,state);
+		selectObject(ScountryID,country);
+		sendText(SPhoneNumber,phonenumber);
 		
-		//clickElement(loginBtn);
-	}
+		if(verifyElement(CardNumber))
+		{
+			FillingCreditcard("03","2022","MyNameCardName","123");
+		}else
+		{
+			sendText(CCName,"123");
+		}
+		
+}
+
+public void FillingCreditcard(String Month, String Year,String Name,String CVV ){
+	sendText(CardNumber,"4111111111111111");
+	selectObject(CardMonth,Month);
+	selectObject(CardYear,Year);
+	sendText(CCName,Name);
+	
+}
 	
 	
 	
