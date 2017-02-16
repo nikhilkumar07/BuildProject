@@ -33,6 +33,7 @@ public class WebTest extends BaseTest {
 				driver.manage().window().maximize();
 				break;
 			case "Chrome":
+				// this chrome driver is hard codded. Please give your system path if you want to run on chrome browser.	
 				System.setProperty("webdriver.chrome.driver","C:\\AllInOne\\SeleniumDrivers\\chrome\\chromedriver.exe");
 				driver = new ChromeDriver();
 				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
