@@ -76,11 +76,15 @@ public class HomePage  extends Selenide{
 		
 		return Float.parseFloat(item1.getText()) + Float.parseFloat(item2.getText());
 	}
+	
+	public float CAtax(){
+		return totalActual()*(725/100);
+	}
 
 
 public float totalExpected(){
 		
-		return Float.parseFloat(item1.getText()) + Float.parseFloat(item2.getText());
+		return Float.parseFloat(Grandtotal.getText());
 	}
 
 	
