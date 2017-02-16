@@ -30,12 +30,12 @@ public class CheckOutFlowTest {
 		homepage.clickOnCartBtn();
 		// filling shipping and card details if the user not saved any information shipping information
 		ReviewOrder.FillingShippingAddress( "firstname","String lastname","companyname","String address1","String address2","32423","24234243234" );
-		/*
-		Build.com, Inc. is located in California and we are obligated to collect California Sales Tax on any items shipped to destinations in California. Sales Tax is collected for all orders shipping to California unless a valid resale certificate is presented prior to purchase. The current sales tax rate is 7.25%.*/
-		float tax = ;
+		
+		/*Build.com, Inc. is located in California and we are obligated to collect California Sales Tax on any items shipped to destinations in California. Sales Tax is collected for all orders shipping to California unless a valid resale certificate is presented prior to purchase. The current sales tax rate is 7.25%.*/
+		
 		
 		// asserting grand tax and grand total.
-		// in Florida the good of florida doesnot have any tax
+		
 		Assert.assertEquals(homepage.tax(), homepage.CAtax());
 		
 		Assert.assertEquals(homepage.totalActual(), homepage.totalExpected());
